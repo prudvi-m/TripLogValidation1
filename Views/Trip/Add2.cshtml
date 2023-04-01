@@ -34,13 +34,13 @@
             if(!valid)$("#AccommodationPhone,#AccommodationEmail").addClass(invalidCssClass);
             else $("#AccommodationPhone,#AccommodationEmail").removeClass(invalidCssClass);
         }
+
         
         function handleContact(inputEl) {
             var valid = true;
             var phone = $('#AccommodationPhone').val();
             var email = $('#AccommodationEmail').val();
             var valid = !(phone.trim() == '' &&  email.trim() == '')
-            debugger;
             handleElClass(inputEl,valid);
         }
 
