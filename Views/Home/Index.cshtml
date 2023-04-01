@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Trip>
+
+@{
+    ViewBag.Title = "My Trip Log";
+}
+
+<a asp-action="Add" asp-controller="Trip" class="mt-2"><b>Add Trip</b></a>
+
+@section scripts {<script src="~/lib/jqueryvalidation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/minimum-age.js"></script>}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Destination</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Accommodations</th>
+            <th>Things To Do</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Trip trip in Model)
+        {
+            <tr>
+                <td>@trip.Destination</td>
+                <td>@trip.StartDate?.ToShortDateString()</td>
+                <td>@trip.EndDate?.ToShortDateString()</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(trip.Accommodation))
+                    {
+                        <div>@trip.Accommodation</div>
+                        @if (!string.IsNullOrEmpty(trip.AccommodationPhone))
+                        {
+                            <div>Phone: @trip.AccommodationPhone</div>
+                        }
+                        @if (!string.IsNullOrEmpty(trip.AccommodationEmail))
+                        {
+                            <div>Email: @trip.AccommodationEmail</div>
+                        }
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(trip.ThingToDo1))
+                    {
+                        <div>@trip.ThingToDo1</div>
+                    }
+                    @if (!string.IsNullOrEmpty(trip.ThingToDo2))
+                    {
+                        <div>@trip.ThingToDo2</div>
+                    }
+                    @if (!string.IsNullOrEmpty(trip.ThingToDo3))
+                    {
+                        <div>@trip.ThingToDo3</div>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

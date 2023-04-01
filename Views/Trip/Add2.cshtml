@@ -1,0 +1,27 @@
+﻿
+@model ConatactValidationModel
+
+@{
+    ViewBag.Title = "Add Trip - Page 2";
+    @* ViewBag.SubHeader = $"Add Info for {Model.Accommodation}"; *@
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="AddContact">
+    <input type="hidden" asp-for="PageNumber" />
+
+    <div class="form-group">
+        <label asp-for="AccommodationPhone">Phone Number</label>
+        <input asp-for="AccommodationPhone" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="AccommodationEmail" required>Email Address</label>
+        <input asp-for="AccommodationEmail" class="form-control" />
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-dark">Next</button>
+        <a asp-action="Cancel" class="btn btn-outline-dark">Cancel</a>
+    </div>
+</form>
