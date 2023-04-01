@@ -12,16 +12,39 @@
 
     <div class="form-group">
         <label asp-for="AccommodationPhone">Phone Number</label>
-        <input asp-for="AccommodationPhone" class="form-control" />
+        <input asp-for="AccommodationPhone" onchange="handleContact(this)" class="form-control" />
     </div>
 
     <div class="form-group">
         <label asp-for="AccommodationEmail" required>Email Address</label>
-        <input asp-for="AccommodationEmail" class="form-control" />
+        <input asp-for="AccommodationEmail" onchange="handleContact(this)" class="form-control" />
     </div>
 
     <div>
         <button type="submit" class="btn btn-dark">Next</button>
         <a asp-action="Cancel" class="btn btn-outline-dark">Cancel</a>
     </div>
+
+
+    <script type="text/javascript">
+
+        
+        function handleElClass(el,valid) {
+            var invalidCssClass = 'input-validation-error';
+            if(!valid)$("#AccommodationPhone,#AccommodationEmail").addClass(invalidCssClass);
+            else $("#AccommodationPhone,#AccommodationEmail").removeClass(invalidCssClass);
+        }
+        
+        function handleContact(inputEl) {
+            var valid = true;
+            var phone = $('#AccommodationPhone').val();
+            var email = $('#AccommodationEmail').val();
+            var valid = !(phone.trim() == '' &&  email.trim() == '')
+            debugger;
+            handleElClass(inputEl,valid);
+        }
+
+
+    </script>   
+    
 </form>

@@ -12,23 +12,23 @@
 
     <div class="form-group">
         <label asp-for="Trip.Destination">Destination</label>
-        <input asp-for="Trip.Destination" onchange="handleErros(this)" class="form-control" />
+        <input asp-for="Trip.Destination" onchange="handleRegex(this,/^[a-zA-Z]+$/)" class="form-control" />
     </div>
 
     <div class="form-group">
         <label asp-for="Trip.Accommodation">Accommodations</label>
-        <input asp-for="Trip.Accommodation" class="form-control" />
+        <input asp-for="Trip.Accommodation" onchange="handleRegex(this,/^[a-zA-Z0-9]+$/)" class="form-control" />
     </div>
 
     
     <div class="form-group">
         <label asp-for="Trip.StartDate">Start Date</label>
-        <input asp-for="Trip.StartDate" class="form-control" />
+        <input asp-for="Trip.StartDate" id="dtStart" onchange="handleDateValidation(this)" class="form-control" />
     </div>
 
     <div class="form-group">
         <label asp-for="Trip.EndDate">End Date</label>
-        <input asp-for="Trip.EndDate" class="form-control" />
+        <input asp-for="Trip.EndDate" onchange="handleDateValidation(this,false)" class="form-control" />
     </div>
 
     <div>
@@ -38,22 +38,44 @@
 
 
     <script type="text/javascript">
-    function handleErros(x) {
-        debugger;
-        var validator = $('form').data('validator');
-        validator.settings.showErrors = function (map, errors) {
-            this.defaultShowErrors();
-            if ($('div[data-valmsg-summary=true] li:visible').length) {
-                this.checkForm();
-                if (this.errorList.length)
-                    $(this.currentForm).triggerHandler("invalid-form", [this]);
-                else
-                    $(this.currentForm).resetSummary();
+
+        
+        function handleElClass(el,valid) {
+            var invalidCssClass = 'input-validation-error';
+            if(!valid) $(el).addClass(invalidCssClass);
+            else $(el).removeClass(invalidCssClass);
+        }
+
+        function validateRegex(regexStr, inputStr) {
+            let regex = new RegExp(regexStr);
+            return regex.test(inputStr);
+        }
+        
+        function handleRegex(inputEl,regex) {
+            var valid = true;
+            if(inputEl && inputEl.attributes['data-val-regex-pattern'].value) {
+                valid = validateRegex(regex,inputEl.value)
+                handleElClass(inputEl,valid)
             }
         }
-    }
 
-    </script>
+        function handleDateValidation(dateEl, start = true) {
+            var valid =  true;
+            var currentValue = new Date(dateEl.value);
+            
+            if(start) {
+                var today = new Date();
+                valid = currentValue >= today;
+            }
+            else {
+                var startDate = new Date($("#dtStart").val());
+                console.log(startDate);
+                valid = currentValue >= startDate;
+            }
+            handleElClass(dateEl,valid)
+        }
+
+    </script>   
     
 </form>
 
