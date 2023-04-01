@@ -5,15 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200106191846_Initial.cs" />
-    <Compile Remove="Migrations\20200106191846_Initial.Designer.cs" />
-    <Compile Remove="Migrations\20200108001719_Nullable.cs" />
-    <Compile Remove="Migrations\20200108001719_Nullable.Designer.cs" />
-    <Compile Remove="Migrations\20200108010257_Nullable2.cs" />
-    <Compile Remove="Migrations\20200108010257_Nullable2.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
